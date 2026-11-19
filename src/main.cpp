@@ -149,10 +149,14 @@ int main(int argc, char **argv) {
   // RSS) for hand-painted chrome and Qt's own file chooser.
   // Qt's built-in generic theme is all it needs, so select it by name
   // (an empty value would let Qt pick a theme from XDG_CURRENT_DESKTOP
-  // instead). The chrome font is pinned in chromeFont() rather than taken
-  // from the theme. `-platformtheme gtk3` on the command line still
-  // overrides this for debugging.
-  qputenv("QT_QPA_PLATFORMTHEME", "generic");
+  // instead). Any other theme is one the user chose on purpose, for
+  // example for its text-editing keys, so it is kept. The chrome font is
+  // pinned in chromeFont() rather than taken from the theme.
+  // `-platformtheme gtk3` on the command line still overrides this for
+  // debugging.
+  const QByteArray sessionTheme = qgetenv("QT_QPA_PLATFORMTHEME");
+  if (sessionTheme.isEmpty() || sessionTheme == "gtk3")
+    qputenv("QT_QPA_PLATFORMTHEME", "generic");
   QGuiApplication::setDesktopFileName(QStringLiteral("omasnap"));
   QApplication application(argc, argv);
   startupTimingMark("QApplication constructed");

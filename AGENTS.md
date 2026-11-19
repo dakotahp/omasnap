@@ -73,10 +73,11 @@ change that touches the principle, not just this summary.
   minimal vector-drawn icons (no icon-theme dependency), the bundled Neucha
   font. Chrome text uses `chromeFont()`/`chromeMonoFont()`
   (`src/overlay-chrome.cpp`), pinned in code, and `main()` installs
-  `chromeDefaultFont()` as the application font; external desktop platform
-  themes are deliberately bypassed at startup in favour of Qt's built-in
-  `generic` theme (see [docs/dependencies.md](docs/dependencies.md)). Chrome
-  must use the pinned fonts and explicit colours; do not derive chrome from
+  `chromeDefaultFont()` as the application font; the session's default
+  `gtk3` platform theme is deliberately bypassed at startup in favour of Qt's
+  built-in `generic` theme, while a theme the user chose is kept (see
+  [docs/dependencies.md](docs/dependencies.md)). Chrome must use the pinned
+  fonts and explicit colours; do not derive chrome from
   `QFontDatabase::systemFont`, `QStyle`, or `palette()`.
 
 ## Repository layout

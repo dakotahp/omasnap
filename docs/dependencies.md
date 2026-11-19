@@ -71,10 +71,13 @@ laptop — for hand-painted chrome and Qt's built-in file chooser. The only
 relevant values the external theme supplied were its general and fixed fonts;
 their chrome and application-default replacements
 are pinned by `chromeFont()`, `chromeMonoFont()`, and `chromeDefaultFont()`
-(`src/overlay-chrome.cpp`) instead. Do not make startup or chrome rendering
-depend on an external desktop theme, `QStyle`- or palette-derived chrome, or
-icon-theme lookup: each is a startup cost with nothing in this codebase to
-spend it on.
+(`src/overlay-chrome.cpp`) instead. Only the session default is bypassed:
+when `QT_QPA_PLATFORMTHEME` names a theme other than `gtk3`, the user chose
+it on purpose (for example, for the text-editing keys it gives the text
+tool), so Omasnap keeps it and its startup cost is the user's choice. Do not
+make startup or chrome rendering depend on an external desktop theme,
+`QStyle`- or palette-derived chrome, or icon-theme lookup: each is a startup
+cost with nothing in this codebase to spend it on.
 
 Chrome colors do follow Omarchy. `src/chrome-theme.cpp` reads `colors.toml` and
 the optional `shell.toml` from `~/.local/state/omarchy/current/theme` on a worker.
